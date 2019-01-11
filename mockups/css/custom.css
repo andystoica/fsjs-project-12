@@ -5,12 +5,19 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom center;
+    background-attachment: fixed;
     font-family: 'Open Sans', sans-serif;
 }
 
 h1 {
     font-size: 5rem;
     font-weight: 400;
+    color: #eee;
+}
+
+h2 {
+    font-size: 4rem;
+    font-weight: 100;
     color: #eee;
 }
 
@@ -34,15 +41,10 @@ p {
 }
 
 a.nav-link {
-    color: #f8f8f8;
     text-transform: uppercase;
     font-size: 1em;
     font-weight: 100;
     letter-spacing: 0.05em;
-}
-
-a.nav-link:hover {
-    color: #6a8dae;
 }
 
 li.active a {

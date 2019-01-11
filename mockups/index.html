@@ -46,30 +46,31 @@
 
     <!-- Registration form -->
     <div class="vertical-center">
-        <form class="container">
+        <form class="container" method="POST" action="/register">
             <div class="row">
-                <div class="col-sm-6 offset-sm-3">
+                <div class="col-md-6 offset-md-3">
+                    <h2 class="text-white display-4 mb-4">Sign on</h2>
                     <div class="form-group">
-                        <label for="name" class="text-white">Name:</label>
+                        <label for="name" class="text-white-50">Name</label>
                         <input type="text" class="form-control" id="name">
-                    </div>                    <div class="form-group">
-                        <label for="email" class="text-white">Email address:</label>
-                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
-                        <small id="emailHelp" class="form-text text-white-50">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group">
-                        <label for="password" class="text-white">Password:</label>
+                        <label for="email" class="text-white-50">Email address</label>
+                        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="text-white-50">Password</label>
                         <input type="password" class="form-control" id="password">
                     </div>
                     <div class="form-group">
-                        <label for="confirmPassword" class="text-white">Confirm password:</label>
+                        <label for="confirmPassword" class="text-white-50">Confirm password</label>
                         <input type="password" class="form-control" id="confirmPassword">
                     </div>
                     <div class="custom-control custom-checkbox mb-3">
                         <input type="checkbox" class="custom-control-input" id="newsletter">
                         <label class="custom-control-label text-white-50" for="newsletter">Subscribe to newsletter</label>
                     </div>
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-primary px-4 mt-2">Register</button>
                 </div>
             </div>
         </form>

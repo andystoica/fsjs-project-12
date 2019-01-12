@@ -11,11 +11,7 @@ function loggedOut(req, res, next) {
 function requiresLogin(req, res, next) {
     
     if (!req.session.userId) {
-        // ERROR 403: Not authorized
-        var err = new Error('You are not authorized to view this page.');
-        err.status = 403;
-        return next(err);
-    
+        return res.redirect('/login');
     } else {
         return next();
     }

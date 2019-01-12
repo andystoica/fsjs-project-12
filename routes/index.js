@@ -103,7 +103,18 @@ router.get('/login', function (req, res, next) {
 
 // GET /logout
 router.get('/logout', function (req, res, next) {
-    return res.send('Logged out ...');
+    if (req.session) {
+        req.session.destroy(function (err) {
+            if (err) {
+                // ERROR 500: Session error.
+                err.message = 'Unknow server error.'
+                err.status = 500;
+                return next(err);
+            } else {
+                res.redirect('/');
+            }
+        });
+    }
 });
 
 
@@ -113,7 +124,7 @@ router.get('/logout', function (req, res, next) {
  */
 
 // GET /tracker
-router.get('/tracker', function (req, res, next) {
+router.get('/tracker', mw.requiresLogin, function (req, res, next) {
     return res.render('tracker', { pageTitle: 'Tracker' });
 });
 

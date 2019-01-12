@@ -5,12 +5,14 @@ nav.navbar.navbar-expand-sm.fixed-top
         ul.navbar-nav.text-center.mx-auto
             li.nav-item.mr-sm-3.active
                 a.nav-link.text-white(href='/') Home
-                    // span.sr-only(current)
             li.nav-item.mr-sm-3
                 a.nav-link.text-white(href='/about') About
             li.nav-item.mr-sm-3
                 a.nav-link.text-white(href='/tracker') Tracker
-            li.nav-item.mr-sm-3
-                a.nav-link.text-white(href='/profile') Profile
-            li.nav-item.mr-sm-3
-                a.nav-link.text-white(href='/logout') Log out
+
+            //- Only when the user is logged in
+            if currentUser
+                li.nav-item.mr-sm-3
+                    a.nav-link.text-white(href='/profile') Profile
+                li.nav-item.mr-sm-3
+                    a.nav-link.text-white(href='/logout') Log out

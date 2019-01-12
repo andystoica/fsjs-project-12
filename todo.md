@@ -7,11 +7,11 @@ x Main page area and footer
 x Custom styling
 
 ## node.js and Express
-- Convert templates to PUG
-- Create routes and implement main templates
+x Convert templates to PUG
+x Create routes and implement main templates
 
 ## User authentication
-- Implement MongoDB / mongoose to save user account information
+x Implement MongoDB / mongoose to save user account information
 - Implement user registration
 - Implement user login
 - Implement user delete account

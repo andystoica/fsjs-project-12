@@ -1,10 +1,10 @@
 # ISS Location and Weather Tracker App
 
 ## HTML Templates
-- Design master template using bootstrap
-- Navigtation elements
-- Main page area and footer
-- Custom styling
+x Design master template using bootstrap
+x Navigtation elements
+x Main page area and footer
+x Custom styling
 
 ## node.js and Express
 - Convert templates to PUG

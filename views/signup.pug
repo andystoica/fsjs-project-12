@@ -1,0 +1,31 @@
+extends layout
+
+block content
+
+    div.vertical-center
+        form.container(method='POST', action='/register')
+            div.row
+                div.col-md-6.offset-md-3
+                    h2.text-white.display-4.mb-4 Sign up
+                    
+                    div.form-group
+                        label.text-white-50(for='name') Name
+                        input.form-control(type='text', id='name')
+                    
+                    div.form-group
+                        label.text-white-50(for='email') Email address
+                        input.form-control(type='email', id='email' aria-describedby='emailHelp')
+                
+                    div.form-group
+                        label.text-white-50(for='password') Password
+                        input.form-control(type='password', id='password')
+                    
+                    div.form-group
+                        label.text-white-50(for='confirmPassword') Confirm password
+                        input.form-control(type='password', id='confirmPassword')
+                    
+                    div.custom-control.custom-checkbox.mb-3
+                        input.custom-control-input(type='checkbox', id='newsletter')
+                        label.custom-control-label.text-white-50(for='newsletter') Subscribe to newsletter
+                    
+                    button.btn.btn-primary.px-4.mt-2(type='submit') Register

@@ -13,7 +13,8 @@ x Create routes and implement main templates
 ## User authentication
 x Implement MongoDB / mongoose to save user account information
 x Implement user registration
-- Implement user profile
+x Implement user profile
+- Implement user logout
 - Implement user login
 - Implement user delete account
 - Implement session store with MongoDB

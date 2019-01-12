@@ -118,9 +118,29 @@ router.get('/tracker', function (req, res, next) {
 });
 
 // GET /profile
-router.get('/profile', function (req, res, next) {
-    return res.render('profile', { pageTitle: 'Profile' });
+router.get('/profile', mw.requiresLogin, function (req, res, next) {
+    // Retreive user information
+    User.findById(req.session.userId)
+            .exec(function (err, user) {       
+            if (err) {
+                // ERROR 500: Database system error.
+                err.message = 'Database system error.'
+                err.status = 500;
+                return next(err);
+            } else {
+                let date = new Date(user.registered);
+                return res.render('profile', {
+                    title: 'Profile',
+                    name: user.name,
+                    email: user.email,
+                    registered: date.toUTCString(),
+                    newsletter: user.newsletter ? 'Yes' : 'No'
+              });
+            }
+    });
 });
+
+
 
 
 module.exports = router;

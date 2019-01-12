@@ -15,13 +15,17 @@ var UserSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    dateRegistered: {
-        type: String,
-        required: true
-    },
     password: {
         type: String,
         required: true,
+    },
+    registered: {
+        type: String,
+        required: true
+    },
+    newsletter: {
+        type: Boolean,
+        default: false
     }
 });
 

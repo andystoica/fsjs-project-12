@@ -3,29 +3,29 @@ extends layout
 block content
 
     div.vertical-center
-        form.container(method='POST', action='/register')
+        form.container(method='POST', action='/signup')
             div.row
                 div.col-md-6.offset-md-3
                     h2.text-white.display-4.mb-4 Sign up
                     
                     div.form-group
                         label.text-white-50(for='name') Name
-                        input.form-control(type='text', id='name')
+                        input.form-control(type='text', id='name', name='name')
                     
                     div.form-group
                         label.text-white-50(for='email') Email address
-                        input.form-control(type='email', id='email' aria-describedby='emailHelp')
+                        input.form-control(type='email', id='email', name='email', aria-describedby='emailHelp')
                 
                     div.form-group
                         label.text-white-50(for='password') Password
-                        input.form-control(type='password', id='password')
+                        input.form-control(type='password', id='password', name='password')
                     
                     div.form-group
                         label.text-white-50(for='confirmPassword') Confirm password
-                        input.form-control(type='password', id='confirmPassword')
+                        input.form-control(type='password', id='confirmPassword', name='confirmPassword')
                     
                     div.custom-control.custom-checkbox.mb-3
-                        input.custom-control-input(type='checkbox', id='newsletter')
+                        input.custom-control-input(type='checkbox', id='newsletter', name='newsletter')
                         label.custom-control-label.text-white-50(for='newsletter') Subscribe to newsletter
                     
                     button.btn.btn-primary.px-4.mt-2(type='submit') Register

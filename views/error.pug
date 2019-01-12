@@ -1,1 +1,11 @@
-h1 Pants ...
+extends layout
+
+block content
+    div.container.vertical-center
+        div.jumbotron-fluid.text-center.w-100.mb-3
+            h3.mb-3 Some things are just not meant to be ...
+            
+            if error.status && error.message
+                p #{error.status} - #{error.message}
+
+            a.btn.btn-primary.btn-sm.px-3.py-2(href='/' role='button') Home

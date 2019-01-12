@@ -1,0 +1,21 @@
+{
+  "name": "fsjs-project-12",
+  "version": "1.0.0",
+  "description": "ISS Tracker App",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andy Stoica",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
+    "connect-mongo": "^2.0.3",
+    "express": "^4.16.4",
+    "express-session": "^1.15.6",
+    "mongoose": "^5.4.3",
+    "pug": "^2.0.3"
+  }
+}

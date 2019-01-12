@@ -10,12 +10,12 @@ var User = require('../models/user');
 
 // GET /
 router.get('/', function (req, res, next) {
-    return res.render('index', { title: 'Home' });
+    return res.render('home', { pageTitle: 'Home' });
 });
   
 // GET /about
 router.get('/about', function (req, res, next) {
-    return res.render('about', { title: 'About' });
+    return res.render('about', { pageTitle: 'About' });
 });
 
 module.exports = router;

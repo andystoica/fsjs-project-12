@@ -45,6 +45,11 @@ router.get('/logout', function (req, res, next) {
  * Restricted pages, only available to registered users
  */
 
+// GET /tracker
+router.get('/tracker', function (req, res, next) {
+    return res.render('tracker', { pageTitle: 'Tracker' });
+});
+
 // GET /profile
 router.get('/profile', function (req, res, next) {
     return res.render('profile', { pageTitle: 'Profile' });

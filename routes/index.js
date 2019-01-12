@@ -98,7 +98,34 @@ router.post('/signup', function (req, res, next) {
 
 // GET /login
 router.get('/login', function (req, res, next) {
-    return res.render('login', { pageTitle: 'Log in' });
+    return res.render('login', { pageTitle: 'Log in'});
+});
+
+// POST /login
+router.post('/login', function (req, res, next) {
+    
+    if (!req.body.email || !req.body.password) {
+        // ERROR 401: Both fields are required
+        let err = new Error('Email and password fields are both required.');
+        err.status = 401;
+        return next(err);
+    
+    } else {
+        User.authenticate(req.body.email, req.body.password, function (err, user) {
+            
+            if (err || !user) {
+                // ERROR 401: Wrong email or password
+                let err = new Error('Wrong email or password.');
+                err.status = 401;
+                return next(err);
+            
+            } else {
+                // User has been authenticated, create a session
+                req.session.userId = user._id;
+                res.redirect('/tracker')
+            }
+        });
+    }
 });
 
 // GET /logout
@@ -150,8 +177,5 @@ router.get('/profile', mw.requiresLogin, function (req, res, next) {
             }
     });
 });
-
-
-
 
 module.exports = router;

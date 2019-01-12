@@ -11,6 +11,7 @@ function loggedOut(req, res, next) {
 function requiresLogin(req, res, next) {
     
     if (!req.session.userId) {
+        res.status(401);
         return res.redirect('/login');
     } else {
         return next();

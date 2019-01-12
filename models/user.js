@@ -37,13 +37,17 @@ var UserSchema = new mongoose.Schema({
 UserSchema.statics.authenticate = function (email, password, callback) {
     User.findOne({ email: email })
             .exec(function (err, user) {
+
                 if (err) {
                     return callback(err);
+
                 } else if (!user) {
+                    // ERROR 401: User not found.
                     var error = new Error('User not found.');
                     error.status = 401;
                     return callback(err);
                 }
+
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (result === true) {
                         return callback(null, user);

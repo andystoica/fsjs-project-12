@@ -8,11 +8,13 @@ var User = require('../models/user');
  * General pages available to all users
  */
 
+
 // GET /
 router.get('/', function (req, res, next) {
     return res.render('home', { pageTitle: 'Home' });
 });
   
+
 // GET /about
 router.get('/about', function (req, res, next) {
     return res.render('about', { pageTitle: 'About' });
@@ -24,10 +26,12 @@ router.get('/about', function (req, res, next) {
  * User registration, loggin in and out
  */
 
+
 // GET /signup
 router.get('/signup', function (req, res, next) {
     return res.render('signup', { pageTitle: 'Register and account' });
 });
+
 
 // POST /signup
 router.post('/signup', function (req, res, next) {
@@ -96,10 +100,12 @@ router.post('/signup', function (req, res, next) {
     }
 });
 
+
 // GET /login
 router.get('/login', function (req, res, next) {
     return res.render('login', { pageTitle: 'Log in'});
 });
+
 
 // POST /login
 router.post('/login', function (req, res, next) {
@@ -122,11 +128,13 @@ router.post('/login', function (req, res, next) {
             } else {
                 // User has been authenticated, create a session
                 req.session.userId = user._id;
+                req.session.userName = user.name;
                 res.redirect('/tracker')
             }
         });
     }
 });
+
 
 // GET /logout
 router.get('/logout', function (req, res, next) {
@@ -150,10 +158,12 @@ router.get('/logout', function (req, res, next) {
  * Restricted pages, only available to registered users
  */
 
+
 // GET /tracker
 router.get('/tracker', mw.requiresLogin, function (req, res, next) {
     return res.render('tracker', { pageTitle: 'Tracker' });
 });
+
 
 // GET /profile
 router.get('/profile', mw.requiresLogin, function (req, res, next) {
@@ -162,7 +172,7 @@ router.get('/profile', mw.requiresLogin, function (req, res, next) {
             .exec(function (err, user) {       
             if (err) {
                 // ERROR 500: Database system error.
-                err.message = 'Database system error.'
+                err.message = 'Database system error.';
                 err.status = 500;
                 return next(err);
             } else {
@@ -176,6 +186,27 @@ router.get('/profile', mw.requiresLogin, function (req, res, next) {
               });
             }
     });
+});
+
+
+// GET /delete
+router.get('/delete', mw.requiresLogin, function (req, res, next) {
+    return res.render('delete', { pageTitle: 'Delete profile', name: req.session.userName });
+});
+
+
+// POST /delete
+router.post('/delete', mw.requiresLogin, function (req, res, next) {
+        User.findByIdAndDelete({ _id: req.session.userId }, function(err) {
+            if (err) {
+                // ERROR 500: Database system error.
+                err.message = 'Database system error.';
+                err.status= 500;
+                return next(err);
+            } else {
+                return res.redirect('/logout');
+            }
+        });
 });
 
 module.exports = router;

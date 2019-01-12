@@ -15,9 +15,9 @@ x Implement MongoDB / mongoose to save user account information
 x Implement user registration
 x Implement user profile
 x Implement user logout
-- Implement user login
-- Implement user delete account
-- Implement session store with MongoDB
+x Implement user login
+x Implement user delete account
+x Implement session store with MongoDB
 
 ## External APIs
 - Implement ISS location tracking

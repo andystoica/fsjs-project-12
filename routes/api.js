@@ -7,7 +7,7 @@ const User = require('../models/user');
 
 
 // GET /api/location
-router.get('/api/location', mw.requiresLogin, function (req, res, next) {
+router.get('/api/location', mw.requiresLogin, (req, res, next) => {
 
     const issAPI = 'http://api.open-notify.org/iss-now.json';
     const darkSkyAPI = 'https://api.darksky.net/forecast';
@@ -39,7 +39,7 @@ router.get('/api/location', mw.requiresLogin, function (req, res, next) {
     getMarker()
         .then((marker) => {
 
-            User.updateOne({ _id: req.session.userId }, { lastTracked: marker }, function(err) {
+            User.updateOne({ _id: req.session.userId }, { lastTracked: marker }, (err) => {
                 if (err) {
                     // ERROR 500: Database system error.
                     err.message = 'Database system error.';
@@ -55,6 +55,11 @@ router.get('/api/location', mw.requiresLogin, function (req, res, next) {
             res.status(500);   
             return res.json({ error: 'Can not locate the ISS at the moment. Please try again later.' });
         });
+});
+
+// GET /api/key
+router.get('/api/key', mw.requiresLogin, (req, res, next) => {
+    res.json({ key : process.env.GOOGLE_API_KEY });
 });
 
 module.exports = router;

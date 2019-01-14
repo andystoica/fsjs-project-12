@@ -22,16 +22,14 @@ db.on('error', console.error.bind(console, 'connection: error:'));
 
 // use sessions for tracking logins
 app.use(session({
-  secret: 'super secret passphrase',
-  resave: true,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: db
-  })
+    secret: 'super secret passphrase',
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: db })
 }));
 
 // make user ID available globally
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.locals.currentUser = req.session.userId;
     next();
 });
@@ -50,7 +48,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
 // include routes
-const routes = require('./routes/index');
+const routes = require('./routes/main');
 const api = require('./routes/api');
 app.use('/', routes, api);
 
@@ -65,14 +63,14 @@ app.set('views', __dirname + '/views');
  */
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
     let err = new Error('File Not Found');
     err.status = 404;
     next(err);
 });
 
-// catch all error handler, the last middleware
-app.use(function(err, req, res, next) {
+// catch all error handler, thsese last middleware
+app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
         pageTitle: 'Oops ...',
@@ -81,9 +79,10 @@ app.use(function(err, req, res, next) {
 });
 
 
+
 /**
  * Fire up the Express server on port 8000
  */
-app.listen(8000, function () {
+app.listen(8000, () => {
     console.log('ISS Tracker server listening on port 8000');
 });

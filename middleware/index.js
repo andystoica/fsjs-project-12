@@ -1,4 +1,9 @@
-function loggedOut(req, res, next) {
+/**
+ * Custom middleware to redirect logged in users
+ * to their profile page when trying to access pages only
+ * available to logged out users
+ */
+const loggedOut = (req, res, next) => {
     
     if (req.session && req.session.userId) {
         return res.redirect('/profile');
@@ -8,7 +13,12 @@ function loggedOut(req, res, next) {
     }
 }
 
-function requiresLogin(req, res, next) {
+
+/**
+ * Custom middleware to check if a user is logged in or not
+ * Responds with JSON for API calls or redirects to /login
+ */
+const requiresLogin = (req, res, next) => {
 
     if (!req.session.userId) {
         res.status(401);

@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
-var mw = require('../middleware');
-var User = require('../models/user');
+const express = require('express');
+const router = express.Router();
+const mw = require('../middleware');
+const User = require('../models/user');
 
 
 /** 
@@ -10,13 +10,13 @@ var User = require('../models/user');
 
 
 // GET /
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
     return res.render('home', { pageTitle: 'Home', section: 'home' });
 });
   
 
 // GET /about
-router.get('/about', function (req, res, next) {
+router.get('/about', (req, res, next) => {
     return res.render('about', { pageTitle: 'About', section: 'about' });
 });
 
@@ -28,73 +28,73 @@ router.get('/about', function (req, res, next) {
 
 
 // GET /signup
-router.get('/signup', function (req, res, next) {
+router.get('/signup', mw.loggedOut, (req, res, next) => {
     return res.render('signup', { pageTitle: 'Register and account' });
 });
 
 
 // POST /signup
-router.post('/signup', function (req, res, next) {
+router.post('/signup', mw.loggedOut, (req, res, next) => {
 
     if (req.body.email &&
         req.body.name &&
         req.body.password &&
         req.body.confirmPassword) {
       
-    // Confirm password has been entered correclty twice
-    if (req.body.password !== req.body.confirmPassword) {
-        // ERROR 400: Passwords don't match
-        let err = new Error('Passwords don\'t match.');
-        err.status = 400;
-        return next(err);
-    }
-  
-    // Create the user data object
-    let datetime = new Date();
-
-    let userData = {
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        newsletter: req.body.newsletter ? true : false,
-        registered: datetime.toISOString()
-    }
-
-    // Check if the user already exists first
-    User.findOne({ email: req.body.email }, function (err, user) {
-        
-        if (err) {    
-            // ERROR 500: Database system error.
-            err.message = 'Database system error.'
-            err.status = 500;
-            return next(err);
-        
-        } else if (user !== null) {
-            // ERROR 400: User already exists.
-            err = new Error('User already registered.');
+        // Confirm password has been entered correclty twice
+        if (req.body.password !== req.body.confirmPassword) {
+            // ERROR 400: Passwords don't match
+            let err = new Error('Passwords don\'t match.');
             err.status = 400;
             return next(err);
-        
-        } else {
-            // Enter the user credentials into the database
-            User.create(userData, function (err, user) {
-                if (err) {
-                    // ERROR 500: Database system error.
-                    err.message = 'Database system error.'
-                    err.status = 500;
-                    return next(err);
-                } else {
-                    // Automatically login user and redirect to profile page
-                    req.session.userId = user._id;
-                    return res.redirect('/profile');
-                }
-            });
         }
-    });
+    
+        // Create the user data object
+        let datetime = new Date();
+
+        let userData = {
+            name: req.body.name,
+            email: req.body.email,
+            password: req.body.password,
+            newsletter: req.body.newsletter ? true : false,
+            registered: datetime.toISOString()
+        }
+
+        // Check if the user already exists first
+        User.findOne({ email: req.body.email }, (err, user) => {
+            
+            if (err) {    
+                // ERROR 500: Database system error.
+                err.message = 'Database system error.'
+                err.status = 500;
+                return next(err);
+            
+            } else if (user !== null) {
+                // ERROR 400: User already exists.
+                err = new Error('User already registered.');
+                err.status = 400;
+                return next(err);
+            
+            } else {
+                // Enter the user credentials into the database
+                User.create(userData, (err, user) => {
+                    if (err) {
+                        // ERROR 500: Database system error.
+                        err.message = 'Database system error.'
+                        err.status = 500;
+                        return next(err);
+                    } else {
+                        // Automatically login user and redirect to profile page
+                        req.session.userId = user._id;
+                        return res.redirect('/profile');
+                    }
+                });
+            }
+        });
   
     } else {
         // ERROR 400: All fields are required.
-        var err = new Error('All fields are required.');
+        let err = new Error('All fields are required.');
         err.status = 400;
         return next(err);
     }
@@ -102,13 +102,13 @@ router.post('/signup', function (req, res, next) {
 
 
 // GET /login
-router.get('/login', function (req, res, next) {
+router.get('/login', mw.loggedOut, (req, res, next) => {
     return res.render('login', { pageTitle: 'Log in' });
 });
 
 
 // POST /login
-router.post('/login', function (req, res, next) {
+router.post('/login', mw.loggedOut, (req, res, next) => {
     
     if (!req.body.email || !req.body.password) {
         // ERROR 401: Both fields are required
@@ -117,7 +117,7 @@ router.post('/login', function (req, res, next) {
         return next(err);
     
     } else {
-        User.authenticate(req.body.email, req.body.password, function (err, user) {
+        User.authenticate(req.body.email, req.body.password, (err, user) => {
             
             if (err || !user) {
                 // ERROR 401: Wrong email or password
@@ -137,9 +137,9 @@ router.post('/login', function (req, res, next) {
 
 
 // GET /logout
-router.get('/logout', function (req, res, next) {
+router.get('/logout', (req, res, next) => {
     if (req.session) {
-        req.session.destroy(function (err) {
+        req.session.destroy((err) => {
             if (err) {
                 // ERROR 500: Session error.
                 err.message = 'Unknow server error.'
@@ -160,17 +160,17 @@ router.get('/logout', function (req, res, next) {
 
 
 // GET /tracker
-router.get('/tracker', mw.requiresLogin, function (req, res, next) {
+router.get('/tracker', mw.requiresLogin, (req, res, next) => {
     return res.render('tracker', { pageTitle: 'Tracker', section: 'tracker' });
 });
 
 
 // GET /profile
-router.get('/profile', mw.requiresLogin, function (req, res, next) {
+router.get('/profile', mw.requiresLogin, (req, res, next) => {
 
     // Retreive user information
     User.findById(req.session.userId)
-            .exec(function (err, user) {       
+            .exec((err, user) => {
             if (err) {
                 // ERROR 500: Database system error.
                 err.message = 'Database system error.';
@@ -200,14 +200,14 @@ router.get('/profile', mw.requiresLogin, function (req, res, next) {
 
 
 // GET /delete
-router.get('/delete', mw.requiresLogin, function (req, res, next) {
+router.get('/delete', mw.requiresLogin, (req, res, next) => {
     return res.render('delete', { pageTitle: 'Delete profile', section: 'profile', name: req.session.userName });
 });
 
 
 // POST /delete
-router.post('/delete', mw.requiresLogin, function (req, res, next) {
-        User.findByIdAndDelete({ _id: req.session.userId }, function(err) {
+router.post('/delete', mw.requiresLogin, (req, res, next) => {
+        User.findByIdAndDelete({ _id: req.session.userId }, (err) => {
             if (err) {
                 // ERROR 500: Database system error.
                 err.message = 'Database system error.';
@@ -218,5 +218,7 @@ router.post('/delete', mw.requiresLogin, function (req, res, next) {
             }
         });
 });
+
+
 
 module.exports = router;

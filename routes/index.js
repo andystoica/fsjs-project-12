@@ -11,13 +11,13 @@ var User = require('../models/user');
 
 // GET /
 router.get('/', function (req, res, next) {
-    return res.render('home', { pageTitle: 'Home' });
+    return res.render('home', { pageTitle: 'Home', section: 'home' });
 });
   
 
 // GET /about
 router.get('/about', function (req, res, next) {
-    return res.render('about', { pageTitle: 'About' });
+    return res.render('about', { pageTitle: 'About', section: 'about' });
 });
 
 
@@ -103,7 +103,7 @@ router.post('/signup', function (req, res, next) {
 
 // GET /login
 router.get('/login', function (req, res, next) {
-    return res.render('login', { pageTitle: 'Log in'});
+    return res.render('login', { pageTitle: 'Log in' });
 });
 
 
@@ -161,12 +161,13 @@ router.get('/logout', function (req, res, next) {
 
 // GET /tracker
 router.get('/tracker', mw.requiresLogin, function (req, res, next) {
-    return res.render('tracker', { pageTitle: 'Tracker' });
+    return res.render('tracker', { pageTitle: 'Tracker', section: 'tracker' });
 });
 
 
 // GET /profile
 router.get('/profile', mw.requiresLogin, function (req, res, next) {
+
     // Retreive user information
     User.findById(req.session.userId)
             .exec(function (err, user) {       
@@ -175,14 +176,23 @@ router.get('/profile', mw.requiresLogin, function (req, res, next) {
                 err.message = 'Database system error.';
                 err.status = 500;
                 return next(err);
+            
             } else {
                 let date = new Date(user.registered);
+                let last = 'n/a';
+                if (user.lastTracked) {
+                    let lastDate = new Date(parseInt(user.lastTracked.timestamp));
+                    last = lastDate.toUTCString();
+                }
+
                 return res.render('profile', {
                     title: 'Profile',
+                    section: 'profile',
                     name: user.name,
                     email: user.email,
                     registered: date.toUTCString(),
-                    newsletter: user.newsletter ? 'Yes' : 'No'
+                    newsletter: user.newsletter ? 'Yes' : 'No',
+                    lastTracked: last
               });
             }
     });
@@ -191,7 +201,7 @@ router.get('/profile', mw.requiresLogin, function (req, res, next) {
 
 // GET /delete
 router.get('/delete', mw.requiresLogin, function (req, res, next) {
-    return res.render('delete', { pageTitle: 'Delete profile', name: req.session.userName });
+    return res.render('delete', { pageTitle: 'Delete profile', section: 'profile', name: req.session.userName });
 });
 
 

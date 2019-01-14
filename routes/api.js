@@ -38,7 +38,17 @@ router.get('/api/location', mw.requiresLogin, function (req, res, next) {
     
     getMarker()
         .then((marker) => {
-            return res.json(marker);
+
+            User.updateOne({ _id: req.session.userId }, { lastTracked: marker }, function(err) {
+                if (err) {
+                    // ERROR 500: Database system error.
+                    err.message = 'Database system error.';
+                    err.status= 500;
+                    return next(err);
+                } else {
+                    return res.json(marker);
+                }
+            });
         })
         .catch((err) => {
             // Handle all HTTP client errors with 500
@@ -46,6 +56,5 @@ router.get('/api/location', mw.requiresLogin, function (req, res, next) {
             return res.json({ error: 'Can not locate the ISS at the moment. Please try again later.' });
         });
 });
-
 
 module.exports = router;

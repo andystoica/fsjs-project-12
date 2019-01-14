@@ -4,15 +4,15 @@ nav.navbar.navbar-expand-sm.fixed-top
     div.collapse.navbar-collapse#navbarNav
         ul.navbar-nav.text-center.mx-auto
             li.nav-item.mr-sm-3
-                a.nav-link.text-white(href='/') Home
+                a.nav-link.text-white(href='/', class=(section === 'home' ? 'active' : '')) Home
             li.nav-item.mr-sm-3
-                a.nav-link.text-white(href='/about') About
+                a.nav-link.text-white(href='/about', class=(section === 'about' ? 'active' : '')) About
             li.nav-item.mr-sm-3
-                a.nav-link.text-white(href='/tracker') Tracker
+                a.nav-link.text-white(href='/tracker', class=(section === 'tracker' ? 'active' : '')) Tracker
 
             //- Only when the user is logged in
             if currentUser
                 li.nav-item.mr-sm-3
-                    a.nav-link.text-white(href='/profile') Profile
+                    a.nav-link.text-white(href='/profile', class=(section === 'profile' ? 'active' : '')) Profile
                 li.nav-item.mr-sm-3
                     a.nav-link.text-white(href='/logout') Log out

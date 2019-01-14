@@ -43,7 +43,7 @@ function initMap() {
             // Create a new marker
             var marker = new google.maps.Marker({
                 position: { lat: res.lat, lng: res.lng },
-                icon: '/img/satellite-icon.svg',
+                icon: '/img/iss-icon.png',
                 map: map,
                 title: res.date + ', ' + res.time,
             });

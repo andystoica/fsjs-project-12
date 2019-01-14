@@ -78,15 +78,16 @@ li a.active {
 
 #mapContent h3 {
     color: #000;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-top: 1rem;
 }
 
 #mapContent p {
     color: #333;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: normal;
+    margin-bottom: 0.5rem;
 }
 
 
@@ -107,6 +108,14 @@ li a.active {
 @media(min-width: 576px) {
     .navbar {
         background: none;
+    }
+    
+    #mapContent h3 {
+        font-size: 1.2rem;
+    }
+    
+    #mapContent p {
+        font-size: 0.8rem;
     }
 }
 

@@ -37,8 +37,8 @@
 - [x] mLab application hosting
 
 ## Bug fixes and maintenance
-- [ ] Icon size on mobile devices is too large and popups don't show up
-- [ ] Adjust font size in information windows on small screens
+- [x] Icon size on mobile devices is too large and popups don't show up
+- [x] Adjust font size in information windows on small screens
 - [ ] Data / Time information doesn't format correctly in user profile
 - [ ] maxZoom level adjusted to 10
 - [ ] Add about us content

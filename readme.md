@@ -20,19 +20,25 @@
 - [x] Implement session store with MongoDB
 
 ## External APIs
-- [ ] Mockup API and front end implementations of Google Maps
+- [x] Mockup API and front end implementations of Google Maps
     - [x] Obtain Google API Key
     - [x] Build login restricted API call to return ISS coordinates
     - [x] Place single marker on Google Maps
     - [x] Place a series of markers on Google Maps
 - [x] Implement ISS location tracking
     - [x] Save coordinates to db after every successful request
-    - [ ] Display tracking history under user profile
 - [x] Implement GoogleMaps location marker
-    - [ ] Display all coordinate history for the currently logged user
 - [x] Implement Weather information at marker
     - [x] Obtain weather information on that location and save to db
+
 ## External Hosting and Testing
-- [ ] Test app with JSHint
-- [ ] Heroku application hosting
-- [ ] mLab application hosting
+- [x] Test app with JSHint
+- [x] Heroku application hosting
+- [x] mLab application hosting
+
+## Bug fixes and maintenance
+- [ ] Icon size on mobile devices is too large and popups don't show up
+- [ ] Data / Time information doesn't format correctly in user profile
+- [ ] maxZoom level adjusted to 10
+- [ ] Add about us content
+- [ ] Greate github repository and upload project online

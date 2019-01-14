@@ -19,7 +19,7 @@ function initMap() {
     // Initialise the Google Map plugin
     var map = new google.maps.Map($('#tracker')[0], {
         zoom: 2,
-        maxZoom: 6,
+        maxZoom: 8,
         center: {
             lat: 20,
             lng: 0
@@ -61,7 +61,7 @@ function initMap() {
             // Create the information window and attach to event
             var infoWindow = new google.maps.InfoWindow({
                 content: contentString,
-                maxWidth: 350
+                maxWidth: 300
             });
 
             // On-click marker listener

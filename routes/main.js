@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mw = require('../middleware');
 const User = require('../models/user');
+const moment = require('moment');
 
 
 /** 
@@ -178,11 +179,13 @@ router.get('/profile', mw.requiresLogin, (req, res, next) => {
                 return next(err);
             
             } else {
-                let date = new Date(user.registered);
-                let last = 'n/a';
+                let dateRegistered = moment(user.registered)
+                        .format("MMMM Do YYYY, HH:mm:ss ZZ")
+                
+                let dateLastTracked = 'n/a';
                 if (user.lastTracked) {
-                    let lastDate = new Date(parseInt(user.lastTracked.timestamp));
-                    last = lastDate.toUTCString();
+                    dateLastTracked = moment(user.lastTracked.timestamp, 'X')
+                            .format("MMMM Do YYYY, HH:mm:ss ZZ")
                 }
 
                 return res.render('profile', {
@@ -190,9 +193,9 @@ router.get('/profile', mw.requiresLogin, (req, res, next) => {
                     section: 'profile',
                     name: user.name,
                     email: user.email,
-                    registered: date.toUTCString(),
+                    registered: dateRegistered,
                     newsletter: user.newsletter ? 'Yes' : 'No',
-                    lastTracked: last
+                    lastTracked: dateLastTracked
               });
             }
     });

@@ -1,11 +1,12 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var mongoose = require("mongoose");
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require("mongoose");
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const dotenv = require('dotenv').config();
 
-var app = express();
-
+// Load environment variables and tnitialise application
+const app = express();
 
 
 /**
@@ -14,23 +15,21 @@ var app = express();
 
 // mongodb connection
 mongoose.connect("mongodb://localhost:27017/isstrack", { useNewUrlParser: true });
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 // mongodb error handling
 db.on('error', console.error.bind(console, 'connection: error:'));
 
 // use sessions for tracking logins
 app.use(session({
-  secret: 'super secret passphrase',
-  resave: true,
-  saveUninitialized: false,
-  store: new MongoStore({
-    mongooseConnection: db
-  })
+    secret: 'super secret passphrase',
+    resave: true,
+    saveUninitialized: false,
+    store: new MongoStore({ mongooseConnection: db })
 }));
 
 // make user ID available globally
-app.use(function (req, res, next) {
+app.use((req, res, next) => {
     res.locals.currentUser = req.session.userId;
     next();
 });
@@ -49,8 +48,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(__dirname + '/public'));
 
 // include routes
-var routes = require('./routes/index');
-app.use('/', routes);
+const routes = require('./routes/main');
+const api = require('./routes/api');
+app.use('/', routes, api);
 
 // view engine setup
 app.set('view engine', 'pug');
@@ -63,14 +63,14 @@ app.set('views', __dirname + '/views');
  */
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-    var err = new Error('File Not Found');
+app.use((req, res, next) => {
+    let err = new Error('File Not Found');
     err.status = 404;
     next(err);
 });
 
-// catch all error handler, the last middleware
-app.use(function(err, req, res, next) {
+// catch all error handler, thsese last middleware
+app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
         pageTitle: 'Oops ...',
@@ -79,9 +79,10 @@ app.use(function(err, req, res, next) {
 });
 
 
+
 /**
  * Fire up the Express server on port 8000
  */
-app.listen(8000, function () {
+app.listen(8000, () => {
     console.log('ISS Tracker server listening on port 8000');
 });

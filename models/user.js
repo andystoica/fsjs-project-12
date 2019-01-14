@@ -26,7 +26,8 @@ var UserSchema = new mongoose.Schema({
     newsletter: {
         type: Boolean,
         default: false
-    }
+    },
+    lastTracked: {}
 });
 
 /**

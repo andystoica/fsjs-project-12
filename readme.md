@@ -1,4 +1,4 @@
-# ISS Location and Weather Tracker App
+# ISS Location and Weather Tracker TODOs
 
 ## HTML Templates
 - [x] Design master template using bootstrap
@@ -21,17 +21,17 @@
 
 ## External APIs
 - [ ] Mockup API and front end implementations of Google Maps
-    - [ ] Obtain Google API Key
+    - [x] Obtain Google API Key
     - [x] Build login restricted API call to return ISS coordinates
-    - [ ] Place single marker on Google Maps
-    - [ ] Place a series of markers on Google Maps
-- [ ] Implement ISS location tracking
-    - [ ] Save coordinates to db after every successful request
+    - [x] Place single marker on Google Maps
+    - [x] Place a series of markers on Google Maps
+- [x] Implement ISS location tracking
+    - [x] Save coordinates to db after every successful request
     - [ ] Display tracking history under user profile
-- [ ] Implement GoogleMaps location marker
+- [x] Implement GoogleMaps location marker
     - [ ] Display all coordinate history for the currently logged user
-- [ ] Implement Weather information at marker
-    - [ ] Obtain weather information on that location and save to db
+- [x] Implement Weather information at marker
+    - [x] Obtain weather information on that location and save to db
 ## External Hosting and Testing
 - [ ] Test app with JSHint
 - [ ] Heroku application hosting

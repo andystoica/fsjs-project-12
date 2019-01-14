@@ -15,7 +15,7 @@ const port = process.env.PORT || 8000;
  */
 
 // mongodb connection
-mongoose.connect("mongodb://localhost:27017/isstrack", { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI || "mongodb://localhost:27017/isstrack", { useNewUrlParser: true });
 const db = mongoose.connection;
 
 // mongodb error handling

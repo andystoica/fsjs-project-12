@@ -7,6 +7,7 @@ const dotenv = require('dotenv').config();
 
 // Load environment variables and tnitialise application
 const app = express();
+const port = process.env.PORT || 8000;
 
 
 /**
@@ -83,6 +84,6 @@ app.use((err, req, res, next) => {
 /**
  * Fire up the Express server on port 8000
  */
-app.listen(8000, () => {
-    console.log('ISS Tracker server listening on port 8000');
+app.listen(port, () => {
+    console.log('ISS Tracker server listening on port ' + port + ' ...');
 });
